@@ -1,0 +1,245 @@
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+  <title>calendar</title>
+  <style>
+    h3 {
+      text-align: center;
+    }
+
+    body {
+      margin: 0px;
+      padding: 0px;
+      display: grid;
+      place-items: center;
+      background: ghostwhite;
+      min-height: 100vh;
+    }
+
+    .con {
+      width: 330px;
+      height: 350px;
+      box-shadow: 2px 1px 1px 1px;
+      border: 5px solid black;
+      background: #D6D8EF;
+
+    }
+    td{
+      margin-left: 30px;
+      border: 2px solid black;
+    }
+
+  </style>
+</head>
+
+<body>
+  
+  <h3>Enter year here <input placeholder="Enter a Year here" id="inp" type="number"><button type="submit" id="btn">submit</button></h3>
+  <div class="con">
+    <table>
+
+      <form>
+
+        <tr>
+
+          <td>
+
+
+            Monday
+
+
+          </td>
+
+          <td id="mon">
+
+          </td>
+
+        </tr>
+
+        <tr>
+
+          <td>
+
+            Tuesday
+
+
+          </td>
+
+          <td id="tue">
+
+          </td>
+
+        </tr>
+
+        <tr>
+
+          <td>
+
+            Wednesday
+
+
+          </td>
+
+          <td id="wed">
+
+          </td>
+
+        </tr>
+
+        <tr>
+
+          <td>
+
+            Thursday
+
+
+          </td>
+          <td id="thu">
+
+          </td>
+
+
+        </tr>
+        <tr>
+
+          <td>
+
+            Friday
+
+
+          </td>
+          <td id="fri">
+
+          </td>
+
+
+        </tr>
+        <tr>
+
+          <td>
+
+            Saturday
+
+
+          </td>
+          <td id="sat">
+
+          </td>
+
+
+        </tr>
+        <tr>
+
+          <td>
+
+            Sunday
+
+
+          </td>
+          <td id="sun">
+
+          </td>
+
+        </tr>
+        <tr>
+
+          <td>
+
+            Hours in Year
+
+
+          </td>
+          <td id="hours">
+
+          </td>
+
+        </tr>
+        <tr>
+
+          <td>
+
+            mins in Year
+
+
+          </td>
+          <td id="min">
+
+          </td>
+
+        </tr>
+        <tr>
+
+          <td>
+
+            sec in Year
+
+
+          </td>
+          <td id="sec">
+
+          </td>
+
+        </tr>
+      </form>
+
+    </table>
+    
+
+  </div>
+  <cite>Made by Muzaffar.</cite>
+  <script>
+    let mon = document.querySelector("#mon")
+    let tue = document.querySelector("#tue")
+    let wed = document.querySelector("#wed")
+    let thu = document.querySelector("#thu")
+    let fri = document.querySelector("#fri")
+    let sat = document.querySelector("#sat")
+    let hours = document.querySelector("#hours")
+    let mins = document.querySelector("#min")
+    let sec = document.querySelector("#sec")
+
+
+    let btn = document.querySelector("#btn")
+
+    let inp = document.querySelector("#inp")
+    btn.addEventListener("click", (e) => {
+
+
+      const options = {
+        method: 'GET',
+        headers: {
+          'X-RapidAPI-Key': '9e42bcfccbmsh23f232faa430803p1303f0jsne8eeae4e570f',
+          'X-RapidAPI-Host': 'working-days.p.rapidapi.com'
+        }
+      };
+
+
+      fetch(`https://working-days.p.rapidapi.com/1.3/analyse?start_date=${inp.value}-01-01&end_date=${inp.value}-12-31&country_code=US&end_time=18%3A15&start_time=09%3A14&configuration=Federal%20holidays`, options)
+        .then(response => response.json()).then((data) => {
+          mon.innerHTML = `${data.days.mondays} Days in ${inp.value}`
+          tue.innerHTML = `${data.days.tuesdays} Days in ${inp.value}`
+          wed.innerHTML = `${data.days.wednesdays} Days in ${inp.value}`
+          thu.innerHTML = `${data.days.thursdays} Days in ${inp.value}`
+          fri.innerHTML = `${data.days.fridays} Days in ${inp.value}`
+          sat.innerHTML = `${data.days.saturdays} Days in ${inp.value}`
+          sun.innerHTML = `${data.days.sundays} Days in ${inp.value}`
+          hours.innerHTML = `${data.days.hours } Hours  `
+          mins.innerHTML = `${data.days.hours*60} Min `
+          sec.innerHTML = `${data.days.hours*60*60} Sec `
+
+
+
+
+
+
+          console.log(data.days.hours * 60 * 60)
+          inp.value = "";
+
+        })
+
+    })
+  </script>
+</body>
+
+</html>
